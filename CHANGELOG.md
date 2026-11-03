@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `HistoricalScheduleBuilder::trading_hours` (sync and async): request extended-hours sessions with `TradingHours::Extended`. The schedule request always asked for regular trading hours, so a product's full session (for example, a futures contract's 17:00–16:00 session) was unreachable (#TBD).
+- `HistoricalDataBuilder::format_date` (sync and async) and the `DateFormat` enum: request `formatDate=1` text timestamps with `DateFormat::Text`, instead of the fixed `formatDate=2` epoch seconds. A production client asks for `formatDate=1` on index closes, and the request shape was unreachable. Text timestamps decode in their named zone (`YYYYMMDD HH:mm:ss <zone>`) or in UTC for the gateway's zone-less `YYYYMMDD-HH:mm:ss` format; a space-separated wall clock without a zone is rejected rather than assumed UTC (#TBD).
 
 ## [5.5.0] - 2026-10-30
 
